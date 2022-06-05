@@ -7,11 +7,12 @@ const PORT = process.env.PORT
 
 const connectDB = require("./db/connect");
 const Logger = require("./logger/logger");
+const notFound = require("./middleware/not-found");
 const logger = Logger.getLogger("./app");
 
 app.use(express.json({ extended: false }));
 
-
+app.use(notFound)
 
 
 const start = async () => {
