@@ -8,7 +8,7 @@ const errorHandlerMiddleware = (err,req,res,next)=>{
         return res.status(err.statusCode).json({msg:err.message})
     }
 
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:'Internal Server Error'})
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg:'Internal Server Error',error:err})
 }
 
 module.exports = errorHandlerMiddleware;
