@@ -11,6 +11,9 @@ const logger = Logger.getLogger("./app");
 
 app.use(express.json({ extended: false }));
 
+
+
+
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
