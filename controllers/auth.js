@@ -10,7 +10,7 @@ const register = async (req, res) => {
     process.env.JWT_SECRET,
     { expiresIn: process.env.JWT_EXPIRY }
   );
-  res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
+  res.status(StatusCodes.CREATED).json({ user: { name: user.getName() }, token });
 };
 
 const login = async (req, res) => {
