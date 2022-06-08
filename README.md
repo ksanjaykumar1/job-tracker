@@ -9,3 +9,14 @@ Email Validation Regex
 
 //schema instance method
 
+## New things learned 
+
+Mongoose middleware
+set access token dynamically
+mongoose error
+
+
+#### mangoose errors
+- validation Errors
+- Duplicate Errors
+- caste errors
