@@ -15,7 +15,25 @@ const jobs = require("./routes/jobs");
 const auth = require("./routes/auth");
 const authMiddlware = require("./middleware/auth");
 
+//security packages
+
+const helmet = require("helmet");
+const cors = require("cors");
+const xss = require("xss-clean");
+const rateLimiter = require("express-rate-limit");
+
 app.use(express.json({ extended: false }));
+
+app.set("trust proxy", 1);
+app.use(
+  rateLimiter({
+    windowMS: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 requests per windowMs
+  })
+);
+app.use(helmet());
+app.use(cors());
+app.use(xss());
 
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/jobs", authMiddlware, jobs);
