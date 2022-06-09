@@ -15,7 +15,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"const jsonData = pm.response",
+									"const jsonData = pm.response.json()",
 									"pm.environment.set(\"token\", jsonData.token);"
 								],
 								"type": "text/javascript"
@@ -51,9 +51,30 @@
 				},
 				{
 					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json()",
+									"pm.environment.set(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"sanjay@gmail.com\", \n    \"password\":\"secret\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{host}}/api/v1/auth/login",
 							"host": [
@@ -77,18 +98,37 @@
 				{
 					"name": "create job",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n    \"company\":\"IBM\",\n    \"position\":\"Blockchain dev\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{host}}/api/v1/auth/register",
+							"raw": "{{host}}/api/v1/jobs/",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"auth",
-								"register"
+								"jobs",
+								""
 							]
 						}
 					},
@@ -97,6 +137,16 @@
 				{
 					"name": "get all jobs",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -131,7 +181,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"companay\":\"centre for smart governance\"\n    \n}",
+							"raw": "{\n    \"company\":\"CSG\",\n    \"position\":\"dev\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -186,10 +236,20 @@
 				{
 					"name": "get job",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/v1/jobs/",
+							"raw": "{{host}}/api/v1/jobs/62a1d3dbe5e0c5b6fe157421",
 							"host": [
 								"{{host}}"
 							],
@@ -197,7 +257,7 @@
 								"api",
 								"v1",
 								"jobs",
-								""
+								"62a1d3dbe5e0c5b6fe157421"
 							]
 						}
 					},
